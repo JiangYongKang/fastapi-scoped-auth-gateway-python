@@ -7,7 +7,7 @@ import logging
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from auth_gateway.audit import AuditRecord, Auditor
+from auth_gateway.audit import Auditor, AuditRecord
 from auth_gateway.authorization import Authorizer
 from auth_gateway.clock import Clock, SystemClock
 from auth_gateway.config import Settings
@@ -57,7 +57,6 @@ def create_app(
     @app.exception_handler(AuthError)
     async def _on_auth_error(request: Request, exc: AuthError) -> JSONResponse:
         # Stable machine-readable code + status; no internal detail leaks.
-        request_id = getattr(request.state, "request_id", None)
         return JSONResponse(
             status_code=exc.http_status,
             content={

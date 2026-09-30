@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from auth_gateway.audit import AuditRecord, Auditor
+from auth_gateway.audit import Auditor, AuditRecord
 from auth_gateway.clock import Clock
 from auth_gateway.config import Settings
 from auth_gateway.crypto import (
@@ -112,7 +112,6 @@ class Issuer:
         self, scopes: frozenset[str], subject: str = "user"
     ) -> dict[str, str]:
         """Create a refresh+access pair; return raw credentials once."""
-        now = self.clock.now()
         family_id = f"fam_{generate_credential('id').split('.')[0].removeprefix('id_')}"
         family = FamilyRecord(
             family_id=family_id, scopes=frozenset(scopes), lineage=[]
@@ -206,10 +205,6 @@ class Issuer:
             "access_token_expires_in": self.settings.access_token_ttl,
             "refresh_token_expires_in": self.settings.refresh_token_ttl,
         }
-
-    def _family_scopes(self, family_id: str) -> frozenset[str]:
-        family = self.store.get_family(family_id)
-        return family.scopes if family is not None else frozenset()
 
     def revoke_family(self, family_id: str, reason: str) -> None:
         self.store.revoke_family(family_id, reason)

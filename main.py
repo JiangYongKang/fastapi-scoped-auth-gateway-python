@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import uvicorn
 
-from auth_gateway.config import Settings
 from auth_gateway.app import create_app
+from auth_gateway.config import Settings
 
 app = create_app(Settings.from_env())
 

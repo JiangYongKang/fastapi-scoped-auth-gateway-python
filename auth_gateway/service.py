@@ -8,19 +8,19 @@ limit quota; storage failures are surfaced as generic internal errors.
 
 from __future__ import annotations
 
-from auth_gateway.audit import AuditRecord, Auditor
+from auth_gateway.audit import Auditor, AuditRecord
 from auth_gateway.authorization import Authorizer
 from auth_gateway.clock import Clock
 from auth_gateway.config import Settings
 from auth_gateway.crypto import parse_credential, verify_secret
 from auth_gateway.errors import AuthError, DenyReason, StorageError
 from auth_gateway.issuer import Issuer
-from auth_gateway.models import CredentialKind, Principal
 from auth_gateway.migration import (
     LEGACY_MARKER,
     LEGACY_WINDOW_CLOSED,
     LegacyResolver,
 )
+from auth_gateway.models import CredentialKind, Principal
 from auth_gateway.ratelimit import RateLimiter
 from auth_gateway.storage import CredentialStore
 

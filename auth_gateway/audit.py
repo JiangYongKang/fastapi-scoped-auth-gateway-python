@@ -13,8 +13,6 @@ from dataclasses import dataclass, field
 from threading import Lock
 from typing import Any
 
-from auth_gateway.errors import DenyReason
-
 logger = logging.getLogger("auth_gateway.audit")
 
 

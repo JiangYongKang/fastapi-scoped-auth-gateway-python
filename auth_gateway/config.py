@@ -29,7 +29,7 @@ class Settings:
     legacy_scope: frozenset[str] = frozenset({"read:public"})
 
     @staticmethod
-    def from_env() -> "Settings":
+    def from_env() -> Settings:
         def _int(name: str, default: int) -> int:
             raw = os.environ.get(name)
             return int(raw) if raw not in (None, "") else default
